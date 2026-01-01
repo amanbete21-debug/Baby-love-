@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy New Year Baby ❤️</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Georgia', serif;
+  background: radial-gradient(circle, #ff4e8a, #1a001f);
+  color: white;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+#startScreen {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+#startBtn {
+  padding: 20px 40px;
+  font-size: 1.5em;
+  border: none;
+  border-radius: 50px;
+  background: white;
+  color: #ff4e8a;
+  cursor: pointer;
+}
+
+.card {
+  max-width: 700px;
+  margin: 90px auto;
+  background: rgba(255,255,255,0.15);
+  padding: 40px;
+  border-radius: 25px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+}
+
+h1 {
+  font-size: 2.8em;
+}
+
+p {
+  font-size: 1.3em;
+  line-height: 1.7;
+}
+
+.heart {
+  font-size: 3.8em;
+  animation: beat 1.4s infinite;
+  margin: 15px 0;
+}
+
+@keyframes beat {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.25); }
+  100% { transform: scale(1); }
+}
+
+button.secretBtn {
+  margin-top: 25px;
+  padding: 12px 25px;
+  border-radius: 30px;
+  border: none;
+  background: white;
+  color: #ff4e8a;
+  font-size: 1.1em;
+  cursor: pointer;
+}
+
+#secretMessage {
+  display: none;
+  margin-top: 25px;
+  background: rgba(0,0,0,0.3);
+  padding: 20px;
+  border-radius: 20px;
+}
+
+footer {
+  margin-top: 30px;
+  font-size: 1.2em;
+}
+
+canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Tap to Start -->
+<div id="startScreen">
+  <button id="startBtn">Tap to Start 💖</button>
+</div>
+
+<!-- Music -->
+<audio id="music" loop>
+  <source src="https://pagalfree.com/musics/128-Tum%20Se%20Hi%20-%20Jab%20We%20Met%20128%20Kbps.mp3" type="audio/mpeg">
+</audio>
+
+<canvas id="fireworks"></canvas>
+
+<div class="card">
+  <h1>🎉 Happy New Year Baby 🎉</h1>
+
+  <div class="heart">❤️</div>
+
+  <p>
+    Baby, this new year feels special because you are in my life.
+    You are not just a part of my journey — you are the reason my life feels complete.
+  </p>
+
+  <p><em>
+    “Tum meri life ka vo hissa ho jisse milke meri life puri hoti hai.”
+  </em></p>
+
+  <p>
+    I wish you happiness, peace, success, and endless smiles.
+    May this year bring us closer, stronger, and full of beautiful memories.
+  </p>
+
+  <!-- Secret Button -->
+  <button class="secretBtn" onclick="showSecret()">Tap for a Secret 💌</button>
+
+  <!-- Hidden Message -->
+  <div id="secretMessage">
+    <p><strong>Just for you, Baby ❤️</strong></p>
+    <p>
+      Har saal badalta rahe, waqt aata-jaata rahe,<br>
+      Par meri dua, meri care, meri feelings hamesha tumhare saath rahengi.
+    </p>
+    <p>
+      Tum meri aadat ho, meri shanti ho,<br>
+      Aur is naye saal ki sabse khoobsurat shuruaat ho.
+    </p>
+  </div>
+
+  <footer>
+    With all my heart,<br>
+    <strong>Aman ❤️</strong>
+  </footer>
+</div>
+
+<script>
+const startBtn = document.getElementById("startBtn");
+const startScreen = document.getElementById("startScreen");
+const music = document.getElementById("music");
+
+startBtn.onclick = () => {
+  music.play();
+  startScreen.style.display = "none";
+};
+
+function showSecret() {
+  document.getElementById("secretMessage").style.display = "block";
+}
+
+// Fireworks
+const canvas = document.getElementById("fireworks");
+const ctx = canvas.getContext("2d");
+canvas.width = innerWidth;
+canvas.height = innerHeight;
+
+let particles = [];
+
+function firework() {
+  for (let i = 0; i < 60; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 2 + 1,
+      dx: (Math.random() - 0.5) * 3,
+      dy: (Math.random() - 0.5) * 3,
+      life: 100
+    });
+  }
+}
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach((p, i) => {
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = "rgba(255,255,255,0.9)";
+    ctx.fill();
+    p.x += p.dx;
+    p.y += p.dy;
+    p.life--;
+    if (p.life <= 0) particles.splice(i, 1);
+  });
+  requestAnimationFrame(animate);
+}
+
+setInterval(firework, 1200);
+animate();
+</script>
+
+</body>
+</html>
